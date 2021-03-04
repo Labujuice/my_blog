@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://labujuice.github.io/my_blog/sitemap.xml

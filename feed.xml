@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Kenny&#x27;s Blog</title>
+    <link href="https://labujuice.github.io/my_blog/feed.xml" rel="self" />
+    <link href="https://labujuice.github.io/my_blog" />
+    <updated>2021-03-04T13:51:05+08:00</updated>
+    <author>
+        <name>Kenny Chan</name>
+    </author>
+    <id>https://labujuice.github.io/my_blog</id>
+
+    <entry>
+        <title>Docker 2 撰寫 Dockerfile</title>
+        <author>
+            <name>Kenny Chan</name>
+        </author>
+        <link href="https://labujuice.github.io/my_blog/docker-2-zhuan-xie-dockerfile.html"/>
+        <id>https://labujuice.github.io/my_blog/docker-2-zhuan-xie-dockerfile.html</id>
+            <category term="Docker"/>
+
+        <updated>2021-03-04T13:51:05+08:00</updated>
+            <summary>
+                <![CDATA[
+                    這是幹麻的？Docker 在我的應用是要拿來用在CI Server 上 Build code 以及做一些簡單的 unit-test，而現實的狀況是 空白的 ubuntu img 內是沒有安裝任何的 gcc, g++, gcc-arm-none-eabi, gtest 等，因此我會希望每次CI開始跑開 contiainer 就可以有這樣的環境縮短每次開始做編譯的環境架設之時間。 同理，如果單純只是想要架設一個環境來玩，玩壞了又可以再生，也是可以透過這樣的手法建立docker img，只是這一篇是以建立編譯環境作為範例而已。 先介紹幾個最基本的要素，要製作一個image檔案需要做的事情 FROM 告知你要使用那一個image來製作 LABEL 標籤，可以留下你的姓名跟電話還有想說的廢話， 例如: LABEL maintainer=&quot;kenny chan &lt;kennycym@gmail.com&gt;&quot;LABEL Description=&quot;Image for building gcc, g++, arm-gcc project.&quot;WORKDIR 執行RUN, CMD, ENTRYPOINT, COPY and ADD 的目錄&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h2 id="這是幹麻的？">這是幹麻的？</h2>
+<p>Docker 在我的應用是要拿來用在CI Server 上 Build code 以及做一些簡單的 unit-test，而現實的狀況是 空白的 ubuntu img 內是沒有安裝任何的 gcc, g++, gcc-arm-none-eabi, gtest 等，因此我會希望每次CI開始跑開 contiainer 就可以有這樣的環境縮短每次開始做編譯的環境架設之時間。</p>
+<p>同理，如果單純只是想要架設一個環境來玩，玩壞了又可以再生，也是可以透過這樣的手法建立docker img，只是這一篇是以建立編譯環境作為範例而已。</p>
+<h2 id="dockerfile-常用基本指令">Dockerfile 常用基本指令</h2>
+<p>先介紹幾個最基本的要素，要製作一個image檔案需要做的事情</p>
+<p><code>FROM</code> 告知你要使用那一個image來製作</p>
+<p><code>LABEL</code> 標籤，可以留下你的姓名跟電話還有想說的廢話， 例如:</p>
+<pre><code>LABEL maintainer=&quot;kenny chan &lt;kennycym@gmail.com&gt;&quot;
+LABEL Description=&quot;Image for building gcc, g++, arm-gcc project.&quot;</code></pre><p><code>WORKDIR</code> 執行RUN, CMD, ENTRYPOINT, COPY and ADD 的目錄</p>
+<p><code>ADD</code> 將檔案或者資料夾加入 contaner </p>
+<p><code>RUN</code> 執行指令，像是平常在terminal內打的指令一樣。</p>
+<p><code>ENV</code> 進行一些環境相關的設定，或者變數的宣告等。</p>
+<h2 id="一個範例">一個範例</h2>
+<p>以我最常用的 gcc, g++, gcc-arm-none-eabi, git 製作一個dockerfile，在這個檔案開始進行之前，要先去下載我指定的gcc-arm-none-eabi 2018q2版本，並且將他放在同樣的目錄之下。</p>
+<p>不知道上那下載可以<a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">點我下載</a>，如果想更換為喜歡的版本也行，就是要在修改一下檔名跟路徑。</p>
+<pre><code>FROM ubuntu:20.04
+LABEL maintainer=&quot;kenny chan &lt;kennycym@gmail.com&gt;&quot;
+LABEL Description=&quot;Image for building gcc, g++, arm-gcc project.&quot;
+WORKDIR /work
+
+ADD . /work
+
+# Install any needed packages specified in requirements.txt
+RUN apt-get update &amp;&amp; \
+    apt-get upgrade -y &amp;&amp; \
+    apt-get install -y \
+# Development files
+      rsync \
+      gcc \
+      build-essential \
+      git \
+      bzip2 \
+      wget &amp;&amp; \
+    apt-get clean
+RUN tar jxvf gcc-arm-none-eabi-7-2018-q2-update-linux.tar.bz2
+
+ENV PATH &quot;/work/gcc-arm-none-eabi-7-2018-q2-update/bin:$PATH&quot;
+</code></pre><p>鵝～其實這個範例是修改自<a href="https://hub.docker.com/r/stronglytyped/arm-none-eabi-gcc/dockerfile">這裡</a>的。</p>
+<h2 id="build-docker-img">Build Docker Img</h2>
+<p>完成後我們可以先看一下目前目錄下有哪些東西</p>
+<pre><code>$ ls
+dockerfile  gcc-arm-none-eabi-7-2018-q2-update-linux.tar.bz2</code></pre><p>確認有這兩樣東西後，接著執行 </p>
+<pre><code>docker build -t ubuntu_gcc_arm_gcc . --no-cache</code></pre><p>這邊有些可說明的，加入<code>-t</code> 可以指定輸出的image ，如果要輸出至兩個或以上就直接 <code>-t image1 -t image2 ,...</code> ， 如果要指定dockerfile 則是<code>-f path/dockerfilename</code> 這樣的手法達成，但不指定就是預設當前目錄下的dockerfile。</p>
+<p>後面加上 <code>--no-cache</code> 則會讓每次build都不會cache住先前的資料，雖然比較慢，但是中間失誤的機會會比較少一些。 (當然熟練的話就不需要這樣子了)</p>
+<p>完成後可以使用<code>docker images</code> 來看看是否已經存在，他的長相應該會是這樣子：</p>
+<pre><code>REPOSITORY                            TAG       IMAGE ID       CREATED        SIZE
+ubuntu_gcc_arm_gcc                    latest    1b40dcef2857   20 hours ago   921MB
+ubuntu                                20.04     f63181f19b2f   6 weeks ago    72.9MB
+ubuntu                                latest    f63181f19b2f   6 weeks ago    72.9MB</code></pre><p>可以發現 <code>ubuntu_gcc_arm_gcc</code> 是存在的。</p>
+<h2 id="確認系統環境">確認系統環境</h2>
+<p>完成後我們可以執行該image</p>
+<pre><code>docker run -it ubuntu_gcc_arm_gcc</code></pre><p>執行後應該可以進去該container的控制界面，那我們就來敲敲看各個編譯器的版本號吧！
+<code>gcc -v</code>  <code>g++ -v</code> <code>arm-none-eabi-gcc -v</code></p>
+<p>應該要得到的結果是：</p>
+<p><strong>gcc</strong></p>
+<p><code>gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04)</code></p>
+<p><strong>g++</strong></p>
+<p><code>gcc version 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907] (GNU Tools for Arm Embedded Processors 7-2018-q2-update)</code></p>
+<p><strong>arm-none-eabi-gcc</strong></p>
+<p><code>gcc version 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907] (GNU Tools for Arm Embedded Processors 7-2018-q2-update)</code></p>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://docs.docker.com/engine/reference/builder/">Docker Docs: Dockerfile reference</a></li>
+<li><a href="https://hub.docker.com/r/stronglytyped/arm-none-eabi-gcc/dockerfile">Docker Hub : stronglytyped/arm-none-eabi-gcc
+</a></li>
+<li><a href="https://ithelp.ithome.com.tw/users/20103456/ironman/1320">用30天來介紹和使用 Docker 系列</a></li>
+</ol>
+
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Docker 1 安裝</title>
+        <author>
+            <name>Kenny Chan</name>
+        </author>
+        <link href="https://labujuice.github.io/my_blog/docker-1-installatio.html"/>
+        <id>https://labujuice.github.io/my_blog/docker-1-installatio.html</id>
+            <category term="Docker"/>
+
+        <updated>2021-03-04T13:47:36+08:00</updated>
+            <summary>
+                <![CDATA[
+                    為啥需要Docker?由於近期開發的專案需要導入在Gitlab上開啟CI/CD的功能，在這之前需要先架設一台GitLab Runner，但是在一台Runner上面如果同時針對很多專案去做檢查是需要把這台SERVER的環境設置成所有專案都相容的，安裝起來相當費工夫，並且可能會在過程中發生不幸的事情。 這時候Docker的好處就展現出來了，可以輕易達成在一個SERVER上面同時滿足： 其實上網搜尋已經有很多前人的足跡，在此就不再次撰寫這篇章，不外乎就是看看Docker官方的教學文件以及上網看看前人們學習的動機與方法。 查閱Docker Docs 網頁[1]可以發現 ubuntu 安裝頁面下面有一個 現成的Shell script，直接下載執行，就可以作到最懶人的安裝方式。 curl -fsSL https://get.docker.com -o get-docker.sh sudo sh get-docker.sh另一方法則是參考其他前輩根據官網教學的指令所撰寫好的Script[2]: sudo apt-get remove -y docker docker-engine docker.io containerd runc; \sudo apt-get update &amp;&amp; \sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common &amp;&amp; \curl -fsSL https://download.docker.com/linux/ubuntu/gpg&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h1 id="為啥需要docker">為啥需要Docker?</h1>
+<p>由於近期開發的專案需要導入在Gitlab上開啟CI/CD的功能，在這之前需要先架設一台GitLab Runner，但是在一台Runner上面如果同時針對很多專案去做檢查是需要把這台SERVER的環境設置成所有專案都相容的，安裝起來相當費工夫，並且可能會在過程中發生不幸的事情。</p>
+<p>這時候Docker的好處就展現出來了，可以輕易達成在一個SERVER上面同時滿足：</p>
+<ol>
+<li>多種編譯環境</li>
+<li>相互隔離</li>
+<li>玩爛了不必重新安裝系統(不污染原系統)</li>
+<li>可攜帶、可複製</li>
+</ol>
+<h1 id="如何開始第一步">如何開始第一步?</h1>
+<p>其實上網搜尋已經有很多前人的足跡，在此就不再次撰寫這篇章，不外乎就是看看Docker官方的教學文件以及上網看看前人們學習的動機與方法。</p>
+<h1 id="安裝懶人指令">安裝懶人指令?</h1>
+<p>查閱Docker Docs 網頁[1]可以發現 ubuntu 安裝頁面下面有一個 現成的Shell script，直接下載執行，就可以作到最懶人的安裝方式。</p>
+<pre><code> curl -fsSL https://get.docker.com -o get-docker.sh
+ sudo sh get-docker.sh</code></pre><p>另一方法則是參考其他前輩根據官網教學的指令所撰寫好的Script[2]:</p>
+<pre><code>sudo apt-get remove -y docker docker-engine docker.io containerd runc; \
+sudo apt-get update &amp;&amp; \
+sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common &amp;&amp; \
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - &amp;&amp; \
+sudo add-apt-repository \
+   &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable&quot; &amp;&amp; \
+sudo apt-get update &amp;&amp; \
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io</code></pre><h1 id="確認已經裝好？">確認已經裝好？</h1>
+<p>如果已經正確安裝可以執行<code>docker</code> 來確定是否已經安裝完成，但是礙於權限應該沒辦法正確執行，故執行以下指令將docker設置為每個使用者都可以執行的權限。</p>
+<pre><code>sudo usermod -aG docker &lt;your-user&gt;</code></pre><p>接著登出在登入應該就可以正常執行，並且可以透過 <code>docker -v</code>確認目前安裝之版本號。</p>
+<h1 id="references">References</h1>
+<ol>
+<li><a href="https://docs.docker.com/">Docker Docs</a></li>
+<li><a href="https://caloskao.org/install-docker-on-ubuntu-20-04-focal-fossa/">https://caloskao.org/install-docker-on-ubuntu-20-04-focal-fossa/</a></li>
+</ol>
+
+            ]]>
+        </content>
+    </entry>
+</feed>
