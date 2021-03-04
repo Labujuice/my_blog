@@ -3,7 +3,7 @@
     <title>Kenny&#x27;s Blog</title>
     <link href="https://labujuice.github.io/my_blog/feed.xml" rel="self" />
     <link href="https://labujuice.github.io/my_blog" />
-    <updated>2021-03-04T13:51:05+08:00</updated>
+    <updated>2021-03-04T15:16:34+08:00</updated>
     <author>
         <name>Kenny Chan</name>
     </author>
@@ -18,7 +18,7 @@
         <id>https://labujuice.github.io/my_blog/docker-2-zhuan-xie-dockerfile.html</id>
             <category term="Docker"/>
 
-        <updated>2021-03-04T13:51:05+08:00</updated>
+        <updated>2021-03-04T15:16:34+08:00</updated>
             <summary>
                 <![CDATA[
                     這是幹麻的？Docker 在我的應用是要拿來用在CI Server 上 Build code 以及做一些簡單的 unit-test，而現實的狀況是 空白的 ubuntu img 內是沒有安裝任何的 gcc, g++, gcc-arm-none-eabi, gtest 等，因此我會希望每次CI開始跑開 contiainer 就可以有這樣的環境縮短每次開始做編譯的環境架設之時間。 同理，如果單純只是想要架設一個環境來玩，玩壞了又可以再生，也是可以透過這樣的手法建立docker img，只是這一篇是以建立編譯環境作為範例而已。 先介紹幾個最基本的要素，要製作一個image檔案需要做的事情 FROM 告知你要使用那一個image來製作 LABEL 標籤，可以留下你的姓名跟電話還有想說的廢話， 例如: LABEL maintainer=&quot;kenny chan &lt;kennycym@gmail.com&gt;&quot;LABEL Description=&quot;Image for building gcc, g++, arm-gcc project.&quot;WORKDIR 執行RUN, CMD, ENTRYPOINT, COPY and ADD 的目錄&hellip;
