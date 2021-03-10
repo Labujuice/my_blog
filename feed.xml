@@ -3,14 +3,14 @@
     <title>Kenny&#x27;s Blog</title>
     <link href="https://labujuice.github.io/my_blog/feed.xml" rel="self" />
     <link href="https://labujuice.github.io/my_blog" />
-    <updated>2021-03-04T20:11:45+08:00</updated>
+    <updated>2021-03-10T23:16:42+08:00</updated>
     <author>
         <name>Kenny Chan</name>
     </author>
     <id>https://labujuice.github.io/my_blog</id>
 
     <entry>
-        <title>Docker 3: use container to compile</title>
+        <title>Docker 3 use container to compile</title>
         <author>
             <name>Kenny Chan</name>
         </author>
@@ -18,7 +18,7 @@
         <id>https://labujuice.github.io/my_blog/docker-3-shi-yongcontainer.html</id>
             <category term="Docker"/>
 
-        <updated>2021-03-04T20:11:45+08:00</updated>
+        <updated>2021-03-10T23:16:42+08:00</updated>
             <summary>
                 <![CDATA[
                     Container 到底要怎麼用呢執行指令得到image後，我們可以透過docker run &lt;image name&gt; &lt;CMD&gt; 執行，被開起來的image稱為container，但是按照上面的指令開下去很快就離開了，例如： image run ubuntu echo hi 。 原因是container的存在是需要精神糧食的，必須要有程式不斷在執行或者是背景有個service在運作，而最簡單讓他活在當下的作法就是讓他前景執行終端機 docker run -it ubuntu ，這樣子就會讓這個container一直存在著，可以開另外一個terminal執行 docker ps 應該可以看到他一直在執行中。 因此如果我需要這個container一直在背景活著怎麼做呢？ while [TRUE]; do echo QQ; sleep 1; done這時候每隔一秒鐘就會印一次QQ，藉此讓這個程式一直活著。 這是看到許多網友的作法，但我覺的不太好。直接讓這個container用交互背景模式下去跑 docker run -id ubuntu這時候會回一堆亂數字後就退出，但是利用 docker ps 是可以發現這個container確實在背景執行著。背景執行指令如果要在背景執行的contianer執行一些指令，則是 docker exec &lt;container name&gt; &lt;cmd&gt;離開contianer直接砍掉在背景執行的container等於在前景執行 exit，手法是&hellip;
