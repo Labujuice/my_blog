@@ -3,12 +3,54 @@
     <title>Kenny&#x27;s Blog</title>
     <link href="https://labujuice.github.io/my_blog/feed.xml" rel="self" />
     <link href="https://labujuice.github.io/my_blog" />
-    <updated>2021-03-15T11:49:26+08:00</updated>
+    <updated>2021-03-21T01:22:56+08:00</updated>
     <author>
         <name>Kenny Chan</name>
     </author>
     <id>https://labujuice.github.io/my_blog</id>
 
+    <entry>
+        <title>Magpylib 基本介紹與安裝</title>
+        <author>
+            <name>Kenny Chan</name>
+        </author>
+        <link href="https://labujuice.github.io/my_blog/magpylib-an-zhuang.html"/>
+        <id>https://labujuice.github.io/my_blog/magpylib-an-zhuang.html</id>
+            <category term="未分類筆記"/>
+
+        <updated>2021-03-21T01:22:56+08:00</updated>
+            <summary>
+                <![CDATA[
+                    緣由因為專案開發有使用到磁鐵與磁力感測器，對於磁場單位與使用情境相當陌生的我就開始在網路上尋找做磁路模擬與分析的工具，無奈找到大部分的工具都是搭配像是Solidworks這種套裝軟體的plug-in，或者是matlab這類專業的數值軟體的套件。 對於崇尚使用免費公開並且只要有根據並且87%成效以上的我來說實在是口味不符，只好更大力地在網上衝浪，很幸運的找到 Magpylib 這套 python3的module。 根據官方文件說明了解，這個模組安裝輕量、使用便利，基本上可以少量的資源完成一些簡單的三圍磁場模擬，例如： 當然他也有一些限制： 根據個人的喜好，還是留下pip的安裝方式好了。 安裝的方式相當簡單，在 Linux and MacOS底下都是使用以下指令進行安裝： pip3 install magpylib其他的就留到下一篇吧，想睡了。 Magpylib document Magpylib Github
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h1 id="緣由">緣由</h1>
+<p>因為專案開發有使用到磁鐵與磁力感測器，對於磁場單位與使用情境相當陌生的我就開始在網路上尋找做磁路模擬與分析的工具，無奈找到大部分的工具都是搭配像是Solidworks這種套裝軟體的plug-in，或者是matlab這類專業的數值軟體的套件。<br>對於崇尚使用免費公開並且只要有根據並且87%成效以上的我來說實在是口味不符，只好更大力地在網上衝浪，很幸運的找到 Magpylib 這套 python3的module。</p>
+<h1 id="magpylib-可以幹啥？">Magpylib 可以幹啥？</h1>
+<p>根據官方文件說明了解，這個模組安裝輕量、使用便利，基本上可以少量的資源完成一些簡單的三圍磁場模擬，例如：  </p>
+<ol>
+<li>模擬立方體磁鐵圓形磁鐵產生的磁場向量。</li>
+<li>導線電流所產生的磁場向量</li>
+<li>可以模擬 磁矩 (magnetic moments) <a href="https://en.wikipedia.org/wiki/Magnetic_moment">wikipedia</a></li>
+</ol>
+<p>當然他也有一些限制：  </p>
+<ol>
+<li>對於磁場必須要基本的概念與了解<br>對Br的認知、對使用環境的限制等，關係到模擬與實際的差異</li>
+<li>不能害怕寫一些簡單的python 程式<br>用Matlab也是得寫一些程式，用其他繪圖軟體也得繪圖＋設定參數，寫程式很基本的</li>
+<li>magnetic shields or transformer cores 是模擬不出來的<br>Shielding 就不談了，這套軟體模擬不出，另外 transformer cores 關係到內部矽鋼片使用的好壞，這一套也是模擬不出來的。</li>
+</ol>
+<h1 id="安裝">安裝</h1>
+<p>根據個人的喜好，還是留下pip的安裝方式好了。<br>安裝的方式相當簡單，在 Linux and MacOS底下都是使用以下指令進行安裝：  </p>
+<pre><code>pip3 install magpylib</code></pre><p>其他的就留到下一篇吧，想睡了。</p>
+<h1 id="references">References</h1>
+<p><a href="https://magpylib.readthedocs.io/">Magpylib document</a></p>
+<p><a href="https://github.com/magpylib/magpylib">Magpylib Github</a></p>
+
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Stm32 FreeRTOS Printf %f issue</title>
         <author>
