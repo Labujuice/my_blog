@@ -10,6 +10,21 @@
     },
     "items": [
         {
+            "id": "https://labujuice.github.io/my_blog/li-yongmagpylib.html",
+            "url": "https://labujuice.github.io/my_blog/li-yongmagpylib.html",
+            "title": "利用Magpylib模擬磁鐵",
+            "summary": "Sources第一個範例先了解怎麼創造磁鐵，基本的磁鐵模組在magpylib.source.magnet內主要分成三種不同的形式存在： 以上這幾種不同形式的磁鐵物件，需要做一些基本的設定才可以變成一個磁鐵： 透過說明書可以了解 magpylib.source.magnet 除了可以定義磁鐵的型態與規格外，同時也可以做某位置下的磁場強度這件事情，這邊留下一筆範例作為筆記： from magpylib.source.magnet import Box, Cylinder, Sphere# Simuate a N38 5 * 5 *5 mm #https://www.leeyed.com/rare_earth_magnet.htmls_Box = Box(mag=(0,0,1220), dim=(5,5,5), pos=(0,0,-2.5))s_Cylinder = Cylinder(mag=(0, 0, 1220), dim=(5, 5), pos=(0.0, 0.0, -2.5), angle=0.0, axis=(0.0, 0.0, 1.0), iterDia=50)s_Sphere = Sphere(mag=(0.0, 0.0, 1220), dim=5.0, pos=(0.0, 0.0,&hellip;",
+            "content_html": "<h1 id=\"sources\">Sources</h1>\n<p>第一個範例先了解怎麼創造磁鐵，基本的磁鐵模組在<code>magpylib.source.magnet</code>內主要分成三種不同的形式存在：  </p>\n<ul>\n<li>Box<br>magpylib.source.magnet.Box(mag=(0.0, 0.0, 0.0), dim=(0.0, 0.0, 0.0), pos=(0.0, 0.0, 0.0), angle=0.0, axis=(0.0, 0.0, 1.0))</li>\n<li>Cylinder<br>magpylib.source.magnet.Cylinder(mag=(0.0, 0.0, 0.0), dim=(0.0, 0.0), pos=(0.0, 0.0, 0.0), angle=0.0, axis=(0.0, 0.0, 1.0), iterDia=50)</li>\n<li>Sphere<br>magpylib.source.magnet.Sphere(mag=(0.0, 0.0, 0.0), dim=0.0, pos=(0.0, 0.0, 0.0), angle=0.0, axis=(0.0, 0.0, 1.0))</li>\n</ul>\n<p>以上這幾種不同形式的磁鐵物件，需要做一些基本的設定才可以變成一個磁鐵：  </p>\n<ul>\n<li>Mag:<br>鐵強度，這邊就是定義磁鐵的Remanence Br剩磁，是用來表示磁場強度的，單位則是常見的 mT ，當然如果今天是知道高斯也可以，做個單位轉換就可以解決了。方向有正負號，可以設定充磁方向 與 根據磁鐵設定剩磁大小。</li>\n<li>Dim:<br>Dimension的意思，根據不同形式的磁鐵有不同的設定方式， box-&gt;長,寬,高、Cylinder-&gt;直徑,高度、Sphere-&gt;直徑。單位mm。</li>\n<li>Pos:<br>表示位置，這個是指磁鐵物件的中心座標位置，如果設定0,0,0則是在origin的地方作為磁鐵中心的意思，單位mm。</li>\n<li>Angle:<br>轉動的角度，單位deg。</li>\n<li>Axis:<br>轉軸向量。</li>\n</ul>\n<h1 id=\"取得磁場強度\">取得磁場強度</h1>\n<p>透過說明書可以了解 <code>magpylib.source.magnet</code> 除了可以定義磁鐵的型態與規格外，同時也可以做某位置下的磁場強度這件事情，這邊留下一筆<a href=\"https://github.com/Labujuice/Learn_magpylib/blob/main/1_magnet%20simulation/mag_box.py\">範例</a>作為筆記：</p>\n<pre><code>from magpylib.source.magnet import Box, Cylinder, Sphere\n\n# Simuate a N38 5 * 5 *5 mm \n#https://www.leeyed.com/rare_earth_magnet.html\ns_Box = Box(mag=(0,0,1220), dim=(5,5,5), pos=(0,0,-2.5))\ns_Cylinder = Cylinder(mag=(0, 0, 1220), dim=(5, 5), pos=(0.0, 0.0, -2.5), angle=0.0, axis=(0.0, 0.0, 1.0), iterDia=50)\ns_Sphere = Sphere(mag=(0.0, 0.0, 1220), dim=5.0, pos=(0.0, 0.0, -2.5), angle=0.0, axis=(0.0, 0.0, 1.0))\n\nprint(s_Box.getB([0,0,5]))\nprint(s_Cylinder.getB([0,0,5]))\nprint(s_Sphere.getB([0,0,5]))</code></pre><p>根據這個範例，可以透過<code>getB(x,y,z)</code>取得該做標下的磁場強度，這樣就可以當作我們設計磁鐵大小或者距離。</p>\n<h1 id=\"實際應用的範例\">實際應用的範例</h1>\n<ol>\n<li>透過單軸磁力senosr感應磁鐵的距離做按鈕、滑軌等應用。</li>\n<li>模擬馬達定轉子磁鐵產生的磁場需要多少距離可以當作沒有干擾。</li>\n<li>模擬磁力encoder製作旋鈕需要的磁鐵距離。</li>\n<li>模擬防盜門窗上磁鐵與感應器的距離。</li>\n<li>掃地機器人感應軟性磁鐵作為柵欄的功能。</li>\n</ol>\n",
+            "author": {
+                "name": "Kenny Chan"
+            },
+            "tags": [
+                   "未分類筆記"
+            ],
+            "date_published": "2021-03-21T14:54:14+08:00",
+            "date_modified": "2021-03-21T15:19:15+08:00"
+        },
+        {
             "id": "https://labujuice.github.io/my_blog/magpylib-an-zhuang.html",
             "url": "https://labujuice.github.io/my_blog/magpylib-an-zhuang.html",
             "title": "Magpylib 基本介紹與安裝",
