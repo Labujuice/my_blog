@@ -3,12 +3,110 @@
     <title>Kenny&#x27;s Blog</title>
     <link href="https://labujuice.github.io/my_blog/feed.xml" rel="self" />
     <link href="https://labujuice.github.io/my_blog" />
-    <updated>2021-03-21T15:19:15+08:00</updated>
+    <updated>2021-04-28T00:37:52+08:00</updated>
     <author>
         <name>Kenny Chan</name>
     </author>
     <id>https://labujuice.github.io/my_blog</id>
 
+    <entry>
+        <title>以雙磁鐵取代磁鐵圈</title>
+        <author>
+            <name>Kenny Chan</name>
+        </author>
+        <link href="https://labujuice.github.io/my_blog/yi-shuang-ci-tie-qu-dai-ci-tie-quan.html"/>
+        <id>https://labujuice.github.io/my_blog/yi-shuang-ci-tie-qu-dai-ci-tie-quan.html</id>
+            <category term="Magpylib"/>
+
+        <updated>2021-04-28T00:37:37+08:00</updated>
+            <summary>
+                <![CDATA[
+                    緣由製作音量大小聲的旋鈕，過去大部份的設計都使用可變電阻進行製作，藉由改變可變電阻阻值大小進而量測到不同的分電壓，藉由分壓改變量來決定要增加多少音量或者減少多少音量，以達成細調的功能。 可變電阻有一個很大的問題，隨著環境不同，溫度、濕度、壓力等都會影響他的飄移範圍與可靠度，長期在濕度較高的環境甚至會導致可變電阻接觸面氧化，造成音量亂跳、忽大忽小等狀況，近而影響使用者的體驗。 我們的好朋友磁鐵＋磁力ＥＮＣＯＤＥＲ可以取代可變電阻達成藉由轉動所產生變化調整音量大小的任務，成本上甚至比一些高階精密可變電阻來得低。 磁力ＥＮＣＯＤＥＲ需要的磁鐵強度通常會給一個範圍，要貼的夠近才可以正確感應。 這時候產生了一些問題： 基本上最佳的設計應該是使用足夠大小的磁環確保磁場均勻，固定上也比單磁鐵黏在中間來得好加工處理，但是磁環大部分是特殊規格， 在元件的取得上比常見的磁鐵尺寸規格難，並且需要負擔開模加工的費用。 這時候其實不必太擔心，根據磁力學磁場會封閉磁力線的特性，可以使用磁鐵串接的方式來達成類似的目的，並且中間依然是空心的狀態，又可以量到想要的磁力大小，怎麼達成呢？我們用 magpylib來進行模擬。 假設我們需求旋鈕底座給的深度只有2mm，中間孔洞直徑 D = 10mm ，上網找現成的銣鐵棚磁鐵，以我的範例來說我找到的磁鐵是 1mm*4mm*2mm，這時候我就得去計算到底10mm間隔下以磁鐵上緣與兩側磁鐵中心點做量測，要串接幾個磁鐵才可以達到一般ＥＮＣＯＤＥＲ需要的30~50mT。 以我上方寫的磁鐵撰寫的範例 做為參考 import numpy as npimport matplotlib.pyplot as pltfrom magpylib.source.magnet import Box,Cylinderfrom magpylib import Collection, displaySystem#distance between magnetsdis = 10# magnet size and field mag_size_x = 1mag_size_y = 4mag_size_z =&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h2 id="緣由">緣由</h2>
+<p>製作音量大小聲的旋鈕，過去大部份的設計都使用<strong>可變電阻</strong>進行製作，藉由改變可變電阻阻值大小進而量測到不同的分電壓，藉由分壓改變量來決定要增加多少音量或者減少多少音量，以達成細調的功能。  </p>
+<p>可變電阻有一個很大的問題，隨著環境不同，溫度、濕度、壓力等都會影響他的飄移範圍與可靠度，長期在濕度較高的環境甚至會導致可變電阻接觸面氧化，造成音量亂跳、忽大忽小等狀況，近而影響使用者的體驗。  </p>
+<h2 id="解法">解法</h2>
+<p>我們的好朋友磁鐵＋磁力ＥＮＣＯＤＥＲ可以取代可變電阻達成藉由轉動所產生變化調整音量大小的任務，成本上甚至比一些高階精密可變電阻來得低。</p>
+<h2 id="可是瑞凡，磁鐵哪來？">可是瑞凡，磁鐵哪來？</h2>
+<p>磁力ＥＮＣＯＤＥＲ需要的磁鐵強度通常會給一個範圍，要貼的夠近才可以正確感應。<br>這時候產生了一些問題：  </p>
+<ol>
+<li>磁鐵尺寸不一強度材質都會影響結果。</li>
+<li>如果想要整體設計薄一點，那是不是使用磁鐵圈比較好？</li>
+<li>磁鐵開模費用，模具費用、製作時程、產量價格？</li>
+</ol>
+<p>基本上最佳的設計應該是使用<strong>足夠大小的磁環</strong>確保磁場均勻，固定上也比單磁鐵黏在中間來得好加工處理，但是磁環大部分是特殊規格， 在元件的取得上比常見的磁鐵尺寸規格難，並且需要負擔開模加工的費用。  </p>
+<p>這時候其實不必太擔心，根據磁力學磁場會封閉磁力線的特性，可以使用磁鐵串接的方式來達成類似的目的，並且中間依然是空心的狀態，又可以量到想要的磁力大小，怎麼達成呢？我們用 magpylib來進行模擬。</p>
+<h2 id="模擬">模擬</h2>
+<p>假設我們需求旋鈕底座給的深度只有<code>2mm</code>，中間孔洞直徑 <code>D = 10mm</code> ，上網找現成的銣鐵棚磁鐵，以我的範例來說我找到的磁鐵是 <code>1mm*4mm*2mm</code>，這時候我就得去計算到底10mm間隔下以磁鐵上緣與兩側磁鐵中心點做量測，要串接幾個磁鐵才可以達到一般ＥＮＣＯＤＥＲ需要的30~50mT。</p>
+<p>以我上方寫的磁鐵撰寫的<a href="https://github.com/Labujuice/Learn_magpylib/tree/main/5_Two%20magnet%20and%20field">範例</a>  做為參考</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from magpylib.source.magnet import Box,Cylinder
+from magpylib import Collection, displaySystem
+
+#distance between magnets
+dis = 10
+
+# magnet size and field 
+mag_size_x = 1
+mag_size_y = 4
+mag_size_z = 2
+
+mag_field_x = 1300
+mag_field_y = 0
+mag_field_z = 0
+
+pos_x = (dis + mag_size_x/2*2)/2
+pos_z = - mag_size_z/2
+
+# create magnets 這邊設定磁鐵上緣靠著z=0這平面,注意: pos是以磁鐵中心為主
+sL = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(-pos_x,0,pos_z))
+sL_1 = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(-pos_x,0,pos_z))
+sL_2 = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(-pos_x,0,pos_z))
+sR = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(pos_x,0,pos_z))
+sR_1 = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(pos_x,0,pos_z))
+sR_2 = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(pos_x,0,pos_z))
+
+#move copy bos
+sL_1.move((-mag_size_x,0,0))
+sR_1.move((mag_size_x,0,0))
+sL_2.move((-2*mag_size_x,0,0))
+sR_2.move((2*mag_size_x,0,0))
+
+# create collection
+c = Collection(sL,sL_1,sL_2,sR,sR_1,sR_2)
+
+# calculate B-field on a grid
+xs = np.linspace(-10,10,33)
+zs = np.linspace(-10,10,44)
+POS = np.array([(x,0,z) for z in zs for x in xs])
+Bs = c.getB(POS).reshape(44,33,3)     #&lt;--VECTORIZED
+
+# create figure
+fig = plt.figure(figsize=(9,5))
+ax1 = fig.add_subplot(121, projection=&#39;3d&#39;)  # 3D-axis
+ax2 = fig.add_subplot(122)                   # 2D-axis
+
+# display system geometry on ax1
+displaySystem(c, subplotAx=ax1, suppress=True)
+
+# display field in xz-plane using matplotlib
+X,Z = np.meshgrid(xs,zs)
+U,V = Bs[:,:,0], Bs[:,:,2]
+ax2.streamplot(X, Z, U, V, color=np.log(U**2+V**2))
+
+print(c.getB([0,0,0]))
+
+plt.show()</code></pre>
+<p>最後可以算出來在<code>0,0,0·</code>座標可以得到32.9mT的剩磁，故這樣的設計是可以用的。</p>
+
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>利用Magpylib模擬磁鐵</title>
         <author>
@@ -16,9 +114,9 @@
         </author>
         <link href="https://labujuice.github.io/my_blog/li-yongmagpylib.html"/>
         <id>https://labujuice.github.io/my_blog/li-yongmagpylib.html</id>
-            <category term="未分類筆記"/>
+            <category term="Magpylib"/>
 
-        <updated>2021-03-21T15:19:15+08:00</updated>
+        <updated>2021-04-28T00:37:44+08:00</updated>
             <summary>
                 <![CDATA[
                     Sources第一個範例先了解怎麼創造磁鐵，基本的磁鐵模組在magpylib.source.magnet內主要分成三種不同的形式存在： 以上這幾種不同形式的磁鐵物件，需要做一些基本的設定才可以變成一個磁鐵： 透過說明書可以了解 magpylib.source.magnet 除了可以定義磁鐵的型態與規格外，同時也可以做某位置下的磁場強度這件事情，這邊留下一筆範例作為筆記： from magpylib.source.magnet import Box, Cylinder, Sphere# Simuate a N38 5 * 5 *5 mm #https://www.leeyed.com/rare_earth_magnet.htmls_Box = Box(mag=(0,0,1220), dim=(5,5,5), pos=(0,0,-2.5))s_Cylinder = Cylinder(mag=(0, 0, 1220), dim=(5, 5), pos=(0.0, 0.0, -2.5), angle=0.0, axis=(0.0, 0.0, 1.0), iterDia=50)s_Sphere = Sphere(mag=(0.0, 0.0, 1220), dim=5.0, pos=(0.0, 0.0,&hellip;
@@ -43,7 +141,7 @@
 </ul>
 <h1 id="取得磁場強度">取得磁場強度</h1>
 <p>透過說明書可以了解 <code>magpylib.source.magnet</code> 除了可以定義磁鐵的型態與規格外，同時也可以做某位置下的磁場強度這件事情，這邊留下一筆<a href="https://github.com/Labujuice/Learn_magpylib/blob/main/1_magnet%20simulation/mag_box.py">範例</a>作為筆記：</p>
-<pre><code>from magpylib.source.magnet import Box, Cylinder, Sphere
+<pre><code class="language-python">from magpylib.source.magnet import Box, Cylinder, Sphere
 
 # Simuate a N38 5 * 5 *5 mm 
 #https://www.leeyed.com/rare_earth_magnet.html
@@ -53,7 +151,8 @@ s_Sphere = Sphere(mag=(0.0, 0.0, 1220), dim=5.0, pos=(0.0, 0.0, -2.5), angle=0.0
 
 print(s_Box.getB([0,0,5]))
 print(s_Cylinder.getB([0,0,5]))
-print(s_Sphere.getB([0,0,5]))</code></pre><p>根據這個範例，可以透過<code>getB(x,y,z)</code>取得該做標下的磁場強度，這樣就可以當作我們設計磁鐵大小或者距離。</p>
+print(s_Sphere.getB([0,0,5]))</code></pre>
+<p>根據這個範例，可以透過<code>getB(x,y,z)</code>取得該做標下的磁場強度，這樣就可以當作我們設計磁鐵大小或者距離。</p>
 <h1 id="實際應用的範例">實際應用的範例</h1>
 <ol>
 <li>透過單軸磁力senosr感應磁鐵的距離做按鈕、滑軌等應用。</li>
@@ -73,9 +172,9 @@ print(s_Sphere.getB([0,0,5]))</code></pre><p>根據這個範例，可以透過<c
         </author>
         <link href="https://labujuice.github.io/my_blog/magpylib-an-zhuang.html"/>
         <id>https://labujuice.github.io/my_blog/magpylib-an-zhuang.html</id>
-            <category term="未分類筆記"/>
+            <category term="Magpylib"/>
 
-        <updated>2021-03-21T01:22:56+08:00</updated>
+        <updated>2021-04-28T00:37:52+08:00</updated>
             <summary>
                 <![CDATA[
                     緣由因為專案開發有使用到磁鐵與磁力感測器，對於磁場單位與使用情境相當陌生的我就開始在網路上尋找做磁路模擬與分析的工具，無奈找到大部分的工具都是搭配像是Solidworks這種套裝軟體的plug-in，或者是matlab這類專業的數值軟體的套件。 對於崇尚使用免費公開並且只要有根據並且87%成效以上的我來說實在是口味不符，只好更大力地在網上衝浪，很幸運的找到 Magpylib 這套 python3的module。 根據官方文件說明了解，這個模組安裝輕量、使用便利，基本上可以少量的資源完成一些簡單的三圍磁場模擬，例如： 當然他也有一些限制： 根據個人的喜好，還是留下pip的安裝方式好了。 安裝的方式相當簡單，在 Linux and MacOS底下都是使用以下指令進行安裝： pip3 install magpylib其他的就留到下一篇吧，想睡了。 Magpylib document Magpylib Github

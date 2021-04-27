@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="zh-tw"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>以雙磁鐵取代磁鐵圈 - Kenny&#x27;s Blog</title><meta name="description" content="緣由製作音量大小聲的旋鈕，過去大部份的設計都使用可變電阻進行製作，藉由改變可變電阻阻值大小進而量測到不同的分電壓，藉由分壓改變量來決定要增加多少音量或者減少多少音量，以達成細調的功能。 可變電阻有一個很大的問題，隨著環境不同，溫度、濕度、壓力等都會影響他的飄移範圍與可靠度，長期在濕度較高的環境甚至會導致可變電阻接觸面氧化，造成音量亂跳、忽大忽小等狀況，近而影響使用者的體驗。 我們的好朋友磁鐵＋磁力ＥＮＣＯＤＥＲ可以取代可變電阻達成藉由轉動所產生變化調整音量大小的任務，成本上甚至比一些高階精密可變電阻來得低。 磁力ＥＮＣＯＤＥＲ需要的磁鐵強度通常會給一個範圍，要貼的夠近才可以正確感應。 這時候產生了一些問題： 基本上最佳的設計應該是使用足夠大小的磁環確保磁場均勻，固定上也比單磁鐵黏在中間來得好加工處理，但是磁環大部分是特殊規格， 在元件的取得上比常見的磁鐵尺寸規格難，並且需要負擔開模加工的費用。 這時候其實不必太擔心，根據磁力學磁場會封閉磁力線的特性，可以使用磁鐵串接的方式來達成類似的目的，並且中間依然是空心的狀態，又可以量到想要的磁力大小，怎麼達成呢？我們用 magpylib來進行模擬。 假設我們需求旋鈕底座給的深度只有2mm，中間孔洞直徑 D = 10mm ，上網找現成的銣鐵棚磁鐵，以我的範例來說我找到的磁鐵是 1mm*4mm*2mm，這時候我就得去計算到底10mm間隔下以磁鐵上緣與兩側磁鐵中心點做量測，要串接幾個磁鐵才可以達到一般ＥＮＣＯＤＥＲ需要的30~50mT。 以我上方寫的磁鐵撰寫的範例 做為參考 import numpy as npimport matplotlib.pyplot as pltfrom magpylib.source.magnet import Box,Cylinderfrom magpylib import Collection, displaySystem#distance between magnetsdis = 10# magnet size and field mag_size_x = 1mag_size_y = 4mag_size_z =&hellip;"><meta name="generator" content="Publii Open-Source CMS for Static Site"><link rel="canonical" href="https://labujuice.github.io/my_blog/yi-shuang-ci-tie-qu-dai-ci-tie-quan.html"><link rel="alternate" type="application/atom+xml" href="https://labujuice.github.io/my_blog/feed.xml"><link rel="alternate" type="application/json" href="https://labujuice.github.io/my_blog/feed.json"><style>:root{--body-font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";--heading-font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";--logo-font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";--menu-font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}</style><link rel="stylesheet" href="https://labujuice.github.io/my_blog/assets/css/style.css?v=a7ae6fe986eb05c4dff6f18a90646277"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://labujuice.github.io/my_blog/yi-shuang-ci-tie-qu-dai-ci-tie-quan.html"},"headline":"以雙磁鐵取代磁鐵圈","datePublished":"2021-04-28T00:36","dateModified":"2021-04-28T00:37","description":"緣由製作音量大小聲的旋鈕，過去大部份的設計都使用可變電阻進行製作，藉由改變可變電阻阻值大小進而量測到不同的分電壓，藉由分壓改變量來決定要增加多少音量或者減少多少音量，以達成細調的功能。 可變電阻有一個很大的問題，隨著環境不同，溫度、濕度、壓力等都會影響他的飄移範圍與可靠度，長期在濕度較高的環境甚至會導致可變電阻接觸面氧化，造成音量亂跳、忽大忽小等狀況，近而影響使用者的體驗。 我們的好朋友磁鐵＋磁力ＥＮＣＯＤＥＲ可以取代可變電阻達成藉由轉動所產生變化調整音量大小的任務，成本上甚至比一些高階精密可變電阻來得低。 磁力ＥＮＣＯＤＥＲ需要的磁鐵強度通常會給一個範圍，要貼的夠近才可以正確感應。 這時候產生了一些問題： 基本上最佳的設計應該是使用足夠大小的磁環確保磁場均勻，固定上也比單磁鐵黏在中間來得好加工處理，但是磁環大部分是特殊規格， 在元件的取得上比常見的磁鐵尺寸規格難，並且需要負擔開模加工的費用。 這時候其實不必太擔心，根據磁力學磁場會封閉磁力線的特性，可以使用磁鐵串接的方式來達成類似的目的，並且中間依然是空心的狀態，又可以量到想要的磁力大小，怎麼達成呢？我們用 magpylib來進行模擬。 假設我們需求旋鈕底座給的深度只有2mm，中間孔洞直徑 D = 10mm ，上網找現成的銣鐵棚磁鐵，以我的範例來說我找到的磁鐵是 1mm*4mm*2mm，這時候我就得去計算到底10mm間隔下以磁鐵上緣與兩側磁鐵中心點做量測，要串接幾個磁鐵才可以達到一般ＥＮＣＯＤＥＲ需要的30~50mT。 以我上方寫的磁鐵撰寫的範例 做為參考 import numpy as npimport matplotlib.pyplot as pltfrom magpylib.source.magnet import Box,Cylinderfrom magpylib import Collection, displaySystem#distance between magnetsdis = 10# magnet size and field mag_size_x = 1mag_size_y = 4mag_size_z =&hellip;","author":{"@type":"Person","name":"Kenny Chan"},"publisher":{"@type":"Organization","name":"Kenny Chan"}}</script></head><body><div class="site-container"><header class="top" id="js-header"><a class="logo" href="https://labujuice.github.io/my_blog/">Kenny&#x27;s Blog</a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu" aria-haspopup="true" aria-expanded="false"><span class="navbar__toggle-box"><span class="navbar__toggle-inner">Menu</span></span></button><ul class="navbar__menu"><li><a href="https://labujuice.github.io/my_blog/about-me.html" target="_self">ABOUT</a></li><li><a href="https://labujuice.github.io/my_blog/tags/" target="_self">Tags</a></li><li><a href="https://labujuice.github.io/my_blog/tags/stm32/" target="_self">STM32</a></li><li class="has-submenu"><a href="https://labujuice.github.io/my_blog/tags/docker/" target="_self" aria-haspopup="true">Docker</a><ul class="navbar__submenu level-2" aria-hidden="true"><li><a href="https://labujuice.github.io/my_blog/docker-1-installatio.html" target="_self">Docker 1: 安裝</a></li><li><a href="https://labujuice.github.io/my_blog/docker-2-zhuan-xie-dockerfile.html" target="_self">Docker 2: Dockerfile</a></li><li><a href="https://labujuice.github.io/my_blog/docker-3-shi-yongcontainer.html" target="_self">Docker 3: Compile with container</a></li></ul></li><li class="has-submenu"><a href="https://labujuice.github.io/my_blog/tags/git/" target="_self" aria-haspopup="true">Git</a><ul class="navbar__submenu level-2" aria-hidden="true"><li class="has-submenu"><span class="is-separator" aria-haspopup="true">Gitlab-Runner</span><ul class="navbar__submenu level-3" aria-hidden="true"><li><a href="https://labujuice.github.io/my_blog/gitlab-runner-2.html" target="_self">Gitlab-Runner 安裝</a></li></ul></li></ul></li></ul></nav></header><main><article class="post"><div class="hero"><figure class="hero__image hero__image--overlay"><img src="https://labujuice.github.io/my_blog/media/website/IMG_1387-1.JPG" srcset="https://labujuice.github.io/my_blog/media/website/responsive/IMG_1387-1-xs.JPG 300w, https://labujuice.github.io/my_blog/media/website/responsive/IMG_1387-1-sm.JPG 480w, https://labujuice.github.io/my_blog/media/website/responsive/IMG_1387-1-md.JPG 768w, https://labujuice.github.io/my_blog/media/website/responsive/IMG_1387-1-lg.JPG 1024w, https://labujuice.github.io/my_blog/media/website/responsive/IMG_1387-1-xl.JPG 1360w, https://labujuice.github.io/my_blog/media/website/responsive/IMG_1387-1-2xl.JPG 1600w" sizes="(max-width: 1600px) 100vw, 1600px" loading="eager" alt=""></figure><header class="hero__content"><div class="wrapper"><div class="post__meta"><time datetime="2021-04-28T00:36">四月 28, 2021</time></div><h1>以雙磁鐵取代磁鐵圈</h1><div class="post__meta post__meta--author"><img src="https://labujuice.github.io/my_blog/media/website/IMG_6244.JPG" loading="eager" alt="Kenny Chan" class="post__author-thumb"> <a href="https://labujuice.github.io/my_blog/authors/kenny-chan/" class="feed__author invert">Kenny Chan</a></div></div></header></div><div class="wrapper post__entry"><h2 id="緣由">緣由</h2><p>製作音量大小聲的旋鈕，過去大部份的設計都使用<strong>可變電阻</strong>進行製作，藉由改變可變電阻阻值大小進而量測到不同的分電壓，藉由分壓改變量來決定要增加多少音量或者減少多少音量，以達成細調的功能。</p><p>可變電阻有一個很大的問題，隨著環境不同，溫度、濕度、壓力等都會影響他的飄移範圍與可靠度，長期在濕度較高的環境甚至會導致可變電阻接觸面氧化，造成音量亂跳、忽大忽小等狀況，近而影響使用者的體驗。</p><h2 id="解法">解法</h2><p>我們的好朋友磁鐵＋磁力ＥＮＣＯＤＥＲ可以取代可變電阻達成藉由轉動所產生變化調整音量大小的任務，成本上甚至比一些高階精密可變電阻來得低。</p><h2 id="可是瑞凡，磁鐵哪來？">可是瑞凡，磁鐵哪來？</h2><p>磁力ＥＮＣＯＤＥＲ需要的磁鐵強度通常會給一個範圍，要貼的夠近才可以正確感應。<br>這時候產生了一些問題：</p><ol><li>磁鐵尺寸不一強度材質都會影響結果。</li><li>如果想要整體設計薄一點，那是不是使用磁鐵圈比較好？</li><li>磁鐵開模費用，模具費用、製作時程、產量價格？</li></ol><p>基本上最佳的設計應該是使用<strong>足夠大小的磁環</strong>確保磁場均勻，固定上也比單磁鐵黏在中間來得好加工處理，但是磁環大部分是特殊規格， 在元件的取得上比常見的磁鐵尺寸規格難，並且需要負擔開模加工的費用。</p><p>這時候其實不必太擔心，根據磁力學磁場會封閉磁力線的特性，可以使用磁鐵串接的方式來達成類似的目的，並且中間依然是空心的狀態，又可以量到想要的磁力大小，怎麼達成呢？我們用 magpylib來進行模擬。</p><h2 id="模擬">模擬</h2><p>假設我們需求旋鈕底座給的深度只有<code>2mm</code>，中間孔洞直徑 <code>D = 10mm</code> ，上網找現成的銣鐵棚磁鐵，以我的範例來說我找到的磁鐵是 <code>1mm*4mm*2mm</code>，這時候我就得去計算到底10mm間隔下以磁鐵上緣與兩側磁鐵中心點做量測，要串接幾個磁鐵才可以達到一般ＥＮＣＯＤＥＲ需要的30~50mT。</p><p>以我上方寫的磁鐵撰寫的<a href="https://github.com/Labujuice/Learn_magpylib/tree/main/5_Two%20magnet%20and%20field">範例</a> 做為參考</p><pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from magpylib.source.magnet import Box,Cylinder
+from magpylib import Collection, displaySystem
+
+#distance between magnets
+dis = 10
+
+# magnet size and field 
+mag_size_x = 1
+mag_size_y = 4
+mag_size_z = 2
+
+mag_field_x = 1300
+mag_field_y = 0
+mag_field_z = 0
+
+pos_x = (dis + mag_size_x/2*2)/2
+pos_z = - mag_size_z/2
+
+# create magnets 這邊設定磁鐵上緣靠著z=0這平面,注意: pos是以磁鐵中心為主
+sL = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(-pos_x,0,pos_z))
+sL_1 = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(-pos_x,0,pos_z))
+sL_2 = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(-pos_x,0,pos_z))
+sR = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(pos_x,0,pos_z))
+sR_1 = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(pos_x,0,pos_z))
+sR_2 = Box(mag=(mag_field_x,mag_field_y,mag_field_z), dim=(mag_size_x,mag_size_y,mag_size_z), pos=(pos_x,0,pos_z))
+
+#move copy bos
+sL_1.move((-mag_size_x,0,0))
+sR_1.move((mag_size_x,0,0))
+sL_2.move((-2*mag_size_x,0,0))
+sR_2.move((2*mag_size_x,0,0))
+
+# create collection
+c = Collection(sL,sL_1,sL_2,sR,sR_1,sR_2)
+
+# calculate B-field on a grid
+xs = np.linspace(-10,10,33)
+zs = np.linspace(-10,10,44)
+POS = np.array([(x,0,z) for z in zs for x in xs])
+Bs = c.getB(POS).reshape(44,33,3)     #&lt;--VECTORIZED
+
+# create figure
+fig = plt.figure(figsize=(9,5))
+ax1 = fig.add_subplot(121, projection=&#39;3d&#39;)  # 3D-axis
+ax2 = fig.add_subplot(122)                   # 2D-axis
+
+# display system geometry on ax1
+displaySystem(c, subplotAx=ax1, suppress=True)
+
+# display field in xz-plane using matplotlib
+X,Z = np.meshgrid(xs,zs)
+U,V = Bs[:,:,0], Bs[:,:,2]
+ax2.streamplot(X, Z, U, V, color=np.log(U**2+V**2))
+
+print(c.getB([0,0,0]))
+
+plt.show()</code></pre><p>最後可以算出來在<code>0,0,0·</code>座標可以得到32.9mT的剩磁，故這樣的設計是可以用的。</p></div><footer class="wrapper post__footer"><p class="post__last-updated">This article was updated on 四月 28, 2021</p><ul class="post__tag"><li><a href="https://labujuice.github.io/my_blog/tags/magpylib/">Magpylib</a></li></ul><div class="post__share"></div><div class="post__bio bio"><img class="bio__avatar" src="https://labujuice.github.io/my_blog/media/website/IMG_6244.JPG" loading="lazy" alt="Kenny Chan"><div class="bio__info"><h3 class="bio__name"><a href="https://labujuice.github.io/my_blog/authors/kenny-chan/" class="invert" rel="author">Kenny Chan</a></h3><p>一個常常忘記自己做過什麼的人，所以才要把它們都記下來。</p></div></div></footer></article><nav class="post__nav"><div class="post__nav-inner"><div class="post__nav-prev"><svg width="1.041em" height="0.416em" aria-hidden="true"><use xlink:href="https://labujuice.github.io/my_blog/assets/svg/svg-map.svg#arrow-prev"/></svg> <a href="https://labujuice.github.io/my_blog/li-yongmagpylib.html" class="invert post__nav-link" rel="prev"><span>Previous</span> 利用Magpylib模擬磁鐵</a></div></div></nav></main><footer class="footer"><div class="footer__copyright"><p>Powered by <a href="https://getpublii.com" target="_blank" rel="nofollow noopener">Publii</a></p></div><button class="footer__bttop js-footer__bttop" aria-label="Back to top"><svg><title>Back to top</title><use xlink:href="https://labujuice.github.io/my_blog/assets/svg/svg-map.svg#toparrow"/></svg></button></footer></div><script>window.publiiThemeMenuConfig = {    
+        mobileMenuMode: 'sidebar',
+        animationSpeed: 300,
+        submenuWidth: 300,
+        doubleClickTime: 500,
+        mobileMenuExpandableSubmenus: true, 
+        relatedContainerForOverlayMenuSelector: '.top',
+   };</script><script defer="defer" src="https://labujuice.github.io/my_blog/assets/js/scripts.min.js?v=f4c4d35432d0e17d212f2fae4e0f8247"></script><script>var images = document.querySelectorAll('img[loading]');
+
+        for (var i = 0; i < images.length; i++) {
+            if (images[i].complete) {
+                images[i].classList.add('is-loaded');
+            } else {
+                images[i].addEventListener('load', function () {
+                    this.classList.add('is-loaded');
+                }, false);
+            }
+        }</script></body></html>
