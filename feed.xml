@@ -3,12 +3,57 @@
     <title>Kenny&#x27;s Blog</title>
     <link href="https://labujuice.github.io/my_blog/feed.xml" rel="self" />
     <link href="https://labujuice.github.io/my_blog" />
-    <updated>2021-04-28T00:37:52+08:00</updated>
+    <updated>2021-10-10T23:02:41+08:00</updated>
     <author>
         <name>Kenny Chan</name>
     </author>
     <id>https://labujuice.github.io/my_blog</id>
 
+    <entry>
+        <title>Submodule with Gitlab CI/CD</title>
+        <author>
+            <name>Kenny Chan</name>
+        </author>
+        <link href="https://labujuice.github.io/my_blog/submodule-with-gitlab-cicd.html"/>
+        <id>https://labujuice.github.io/my_blog/submodule-with-gitlab-cicd.html</id>
+            <category term="Git"/>
+
+        <updated>2021-10-10T23:02:41+08:00</updated>
+            <summary>
+                <![CDATA[
+                    話題緣由因為專案需求將部份程式使用Submodule的形式進行包裝, 以方便將這些模組化的程式供應給眾多專案使用, 降低相同程式維護的成本… 但不幸的事情發生了, 原先已經將這些程式打整包的, 使用gitlab-ci進行編譯與跑測試腳本, 在加入Submodule之後就沒辦法正確拉到該submodule內的東西, 接著就發生了 Runner 回報fail的狀況. 經過谷歌大神以及Gitlab的說明文件解釋, 大致可以將解決方向整理出來： [submodule &quot;project-x&quot;]path = project-xurl = https://gitserver.com/group/project-x.git #url = ../../group/project-x.git #SSHpath: 這個模組要放置的路徑, url: 這個模組本來的路徑.修改gitlab-ci.yml 內的variables的設定variables:GIT_SUBMODULE_STRATEGY: recursive #can bet set to normal or recursive理論上完成以下兩項 Runner就應該要可以正常拉到 Submodule的檔案並且正確執行，但天底下就是有這麼一個意外….. 如果是私人專案或者是封閉的git server該如何呢？ 我所碰到的例外情境是封閉環境下的GitServer並且非Public專案, 使用Http的方法無法正確拉到submodule的檔案. 回想一下前面我們製作Runner的時候, 其實是使用Key的方式進行認證, 而SSH通道的使用也必須要先有Key才可以開通, 所以我第一時間想到的是既然是這樣「那應該也是走SSH吧？」…. 沒錯,&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h2 id="話題緣由">話題緣由</h2>
+<p>因為專案需求將部份程式使用Submodule的形式進行包裝, 以方便將這些模組化的程式供應給眾多專案使用, 降低相同程式維護的成本…  </p>
+<p>但不幸的事情發生了, 原先已經將這些程式打整包的, 使用gitlab-ci進行編譯與跑測試腳本, 在加入Submodule之後就沒辦法正確拉到該submodule內的東西, 接著就發生了 Runner 回報fail的狀況.</p>
+<h2 id="解決方法">解決方法</h2>
+<p>經過谷歌大神以及Gitlab的說明文件解釋, 大致可以將解決方向整理出來：</p>
+<ol>
+<li>確定 <code>.gitmodules</code> 的設定正確, 以下來自gitlab的範例說明了新增 submodule的方法<pre><code>[submodule &quot;project-x&quot;]
+path = project-x
+url = https://gitserver.com/group/project-x.git
+ #url = ../../group/project-x.git #SSH</code></pre>path: 這個模組要放置的路徑, url: 這個模組本來的路徑.</li>
+<li>修改<code>gitlab-ci.yml</code> 內的<code>variables</code>的設定<pre><code>variables:
+GIT_SUBMODULE_STRATEGY: recursive  #can bet set to normal or recursive</code></pre></li>
+</ol>
+<hr>
+<p>理論上完成以下兩項 Runner就應該要可以正常拉到 Submodule的檔案並且正確執行，但天底下就是有這麼一個意外….. 如果是私人專案或者是封閉的git server該如何呢？</p>
+<h2 id="例外情境">例外情境</h2>
+<p>我所碰到的例外情境是封閉環境下的GitServer並且非Public專案, 使用Http的方法無法正確拉到submodule的檔案.<br>回想一下前面我們製作Runner的時候, 其實是使用Key的方式進行認證, 而SSH通道的使用也必須要先有Key才可以開通, 所以我第一時間想到的是既然是這樣「<strong>那應該也是走SSH吧？</strong>」….  </p>
+<p>沒錯, 這種情況下確實就是<strong>走ssh</strong>了….</p>
+<hr>
+<p>例外題： <strong>那不同server 又是非public專案該如何呢？</strong> 這點還沒碰到過待實做, 如果有結果會在貼上來。</p>
+<h2 id="referencies">Referencies</h2>
+<ol>
+<li><a href="https://docs.gitlab.com/ee/ci/git_submodules.html">Gitlab Submodule with Gitlab CI/CD</a></li>
+</ol>
+
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>以雙磁鐵取代磁鐵圈</title>
         <author>
