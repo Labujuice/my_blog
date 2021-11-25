@@ -10,6 +10,21 @@
     },
     "items": [
         {
+            "id": "https://labujuice.github.io/my_blog/docker-commit-function.html",
+            "url": "https://labujuice.github.io/my_blog/docker-commit-function.html",
+            "title": "Docker Commit function",
+            "summary": "用途先前使用過 dockerfile的方式來建立image檔, 但是以平時使用電腦環境的情境來說, 個人是比較喜歡使用指令的方式一個一個安裝東西或者做相關的設定(因為不是常常在重灌電腦), 但這樣安裝之後, 在container被關閉之後就消失了, 所作的更動也不會被留下來, 這樣該怎麼辦呢？ 那就使用 docker commit吧! 指令說明： docker commit -m &quot;COMMIT MSG HERE&quot; -a &quot;AUTHOR NAME&quot; CONTAINER_ID CONTAINER_NAME簡易範例： docker commit -m &quot;install tkinter&quot; -a &quot;Kenny.chan&quot; 8e08b10e3005 ubuntu:18.04 ",
+            "content_html": "<h2 id=\"用途\">用途</h2>\n<p>先前使用過 dockerfile的方式來建立image檔, 但是以平時使用電腦環境的情境來說, 個人是比較喜歡使用指令的方式一個一個安裝東西或者做相關的設定(因為不是常常在重灌電腦), 但這樣安裝之後, 在container被關閉之後就消失了, 所作的更動也不會被留下來, 這樣該怎麼辦呢？  </p>\n<p>那就使用 <code>docker commit</code>吧!</p>\n<h2 id=\"簡易指令筆記\">簡易指令筆記</h2>\n<p>指令說明：</p>\n<pre><code>docker commit -m &quot;COMMIT MSG HERE&quot; -a &quot;AUTHOR NAME&quot; CONTAINER_ID CONTAINER_NAME</code></pre><p>簡易範例：</p>\n<pre><code>docker commit -m &quot;install tkinter&quot; -a &quot;Kenny.chan&quot; 8e08b10e3005 ubuntu:18.04 </code></pre>",
+            "author": {
+                "name": "Kenny Chan"
+            },
+            "tags": [
+                   "Docker"
+            ],
+            "date_published": "2021-11-25T16:39:27+08:00",
+            "date_modified": "2021-11-25T16:39:27+08:00"
+        },
+        {
             "id": "https://labujuice.github.io/my_blog/gpyinstaller-an-zhuang-yu-shi-yong.html",
             "url": "https://labujuice.github.io/my_blog/gpyinstaller-an-zhuang-yu-shi-yong.html",
             "title": "Pyinstaller安裝與使用",
@@ -143,21 +158,6 @@
             ],
             "date_published": "2021-03-04T16:51:10+08:00",
             "date_modified": "2021-03-10T23:16:42+08:00"
-        },
-        {
-            "id": "https://labujuice.github.io/my_blog/docker-2-zhuan-xie-dockerfile.html",
-            "url": "https://labujuice.github.io/my_blog/docker-2-zhuan-xie-dockerfile.html",
-            "title": "Docker 2 撰寫 Dockerfile",
-            "summary": "這是幹麻的？Docker 在我的應用是要拿來用在CI Server 上 Build code 以及做一些簡單的 unit-test，而現實的狀況是 空白的 ubuntu img 內是沒有安裝任何的 gcc, g++, gcc-arm-none-eabi, gtest 等，因此我會希望每次CI開始跑開 contiainer 就可以有這樣的環境縮短每次開始做編譯的環境架設之時間。 同理，如果單純只是想要架設一個環境來玩，玩壞了又可以再生，也是可以透過這樣的手法建立docker img，只是這一篇是以建立編譯環境作為範例而已。 先介紹幾個最基本的要素，要製作一個image檔案需要做的事情 FROM 告知你要使用那一個image來製作 LABEL 標籤，可以留下你的姓名跟電話還有想說的廢話， 例如: LABEL maintainer=&quot;kenny chan &lt;kennycym@gmail.com&gt;&quot;LABEL Description=&quot;Image for building gcc, g++, arm-gcc project.&quot;WORKDIR 執行RUN, CMD, ENTRYPOINT, COPY and ADD 的目錄&hellip;",
-            "content_html": "<h2 id=\"這是幹麻的？\">這是幹麻的？</h2>\n<p>Docker 在我的應用是要拿來用在CI Server 上 Build code 以及做一些簡單的 unit-test，而現實的狀況是 空白的 ubuntu img 內是沒有安裝任何的 gcc, g++, gcc-arm-none-eabi, gtest 等，因此我會希望每次CI開始跑開 contiainer 就可以有這樣的環境縮短每次開始做編譯的環境架設之時間。</p>\n<p>同理，如果單純只是想要架設一個環境來玩，玩壞了又可以再生，也是可以透過這樣的手法建立docker img，只是這一篇是以建立編譯環境作為範例而已。</p>\n<h2 id=\"dockerfile-常用基本指令\">Dockerfile 常用基本指令</h2>\n<p>先介紹幾個最基本的要素，要製作一個image檔案需要做的事情</p>\n<p><code>FROM</code> 告知你要使用那一個image來製作</p>\n<p><code>LABEL</code> 標籤，可以留下你的姓名跟電話還有想說的廢話， 例如:</p>\n<pre><code>LABEL maintainer=&quot;kenny chan &lt;kennycym@gmail.com&gt;&quot;\nLABEL Description=&quot;Image for building gcc, g++, arm-gcc project.&quot;</code></pre><p><code>WORKDIR</code> 執行RUN, CMD, ENTRYPOINT, COPY and ADD 的目錄</p>\n<p><code>ADD</code> 將檔案或者資料夾加入 contaner </p>\n<p><code>RUN</code> 執行指令，像是平常在terminal內打的指令一樣。</p>\n<p><code>ENV</code> 進行一些環境相關的設定，或者變數的宣告等。</p>\n<h2 id=\"一個範例\">一個範例</h2>\n<p>以我最常用的 gcc, g++, gcc-arm-none-eabi, git 製作一個dockerfile，在這個檔案開始進行之前，要先去下載我指定的gcc-arm-none-eabi 2018q2版本，並且將他放在同樣的目錄之下。</p>\n<p>不知道上那下載可以<a href=\"https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads\">點我下載</a>，如果想更換為喜歡的版本也行，就是要在修改一下檔名跟路徑。</p>\n<pre><code>FROM ubuntu:20.04\nLABEL maintainer=&quot;kenny chan &lt;kennycym@gmail.com&gt;&quot;\nLABEL Description=&quot;Image for building gcc, g++, arm-gcc project.&quot;\nWORKDIR /work\n\nADD . /work\n\n# Install any needed packages specified in requirements.txt\nRUN apt-get update &amp;&amp; \\\n    apt-get upgrade -y &amp;&amp; \\\n    apt-get install -y \\\n# Development files\n      rsync \\\n      gcc \\\n      build-essential \\\n      git \\\n      bzip2 \\\n      wget &amp;&amp; \\\n    apt-get clean\nRUN tar jxvf gcc-arm-none-eabi-7-2018-q2-update-linux.tar.bz2\n\nENV PATH &quot;/work/gcc-arm-none-eabi-7-2018-q2-update/bin:$PATH&quot;\n</code></pre><p>鵝～其實這個範例是修改自<a href=\"https://hub.docker.com/r/stronglytyped/arm-none-eabi-gcc/dockerfile\">這裡</a>的。</p>\n<h2 id=\"build-docker-img\">Build Docker Img</h2>\n<p>完成後我們可以先看一下目前目錄下有哪些東西</p>\n<pre><code>$ ls\ndockerfile  gcc-arm-none-eabi-7-2018-q2-update-linux.tar.bz2</code></pre><p>確認有這兩樣東西後，接著執行 </p>\n<pre><code>docker build -t ubuntu_gcc_arm_gcc . --no-cache</code></pre><p>這邊有些可說明的，加入<code>-t</code> 可以指定輸出的image ，如果要輸出至兩個或以上就直接 <code>-t image1 -t image2 ,...</code> ， 如果要指定dockerfile 則是<code>-f path/dockerfilename</code> 這樣的手法達成，但不指定就是預設當前目錄下的dockerfile。</p>\n<p>後面加上 <code>--no-cache</code> 則會讓每次build都不會cache住先前的資料，雖然比較慢，但是中間失誤的機會會比較少一些。 (當然熟練的話就不需要這樣子了)</p>\n<p>完成後可以使用<code>docker images</code> 來看看是否已經存在，他的長相應該會是這樣子：</p>\n<pre><code>REPOSITORY                            TAG       IMAGE ID       CREATED        SIZE\nubuntu_gcc_arm_gcc                    latest    1b40dcef2857   20 hours ago   921MB\nubuntu                                20.04     f63181f19b2f   6 weeks ago    72.9MB\nubuntu                                latest    f63181f19b2f   6 weeks ago    72.9MB</code></pre><p>可以發現 <code>ubuntu_gcc_arm_gcc</code> 是存在的。</p>\n<h2 id=\"確認系統環境\">確認系統環境</h2>\n<p>完成後我們可以執行該image</p>\n<pre><code>docker run -it ubuntu_gcc_arm_gcc</code></pre><p>執行後應該可以進去該container的控制界面，那我們就來敲敲看各個編譯器的版本號吧！\n<code>gcc -v</code>  <code>g++ -v</code> <code>arm-none-eabi-gcc -v</code></p>\n<p>應該要得到的結果是：</p>\n<p><strong>gcc</strong></p>\n<p><code>gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04)</code></p>\n<p><strong>g++</strong></p>\n<p><code>gcc version 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907] (GNU Tools for Arm Embedded Processors 7-2018-q2-update)</code></p>\n<p><strong>arm-none-eabi-gcc</strong></p>\n<p><code>gcc version 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907] (GNU Tools for Arm Embedded Processors 7-2018-q2-update)</code></p>\n<h2 id=\"references\">References</h2>\n<ol>\n<li><a href=\"https://docs.docker.com/engine/reference/builder/\">Docker Docs: Dockerfile reference</a></li>\n<li><a href=\"https://hub.docker.com/r/stronglytyped/arm-none-eabi-gcc/dockerfile\">Docker Hub : stronglytyped/arm-none-eabi-gcc\n</a></li>\n<li><a href=\"https://ithelp.ithome.com.tw/users/20103456/ironman/1320\">用30天來介紹和使用 Docker 系列</a></li>\n</ol>\n",
-            "author": {
-                "name": "Kenny Chan"
-            },
-            "tags": [
-                   "Docker"
-            ],
-            "date_published": "2021-03-03T09:58:08+08:00",
-            "date_modified": "2021-03-04T15:16:34+08:00"
         }
     ]
 }
