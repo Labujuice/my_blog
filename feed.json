@@ -10,6 +10,21 @@
     },
     "items": [
         {
+            "id": "https://labujuice.github.io/my_blog/yidocker-mo-niarm-ubuntu.html",
+            "url": "https://labujuice.github.io/my_blog/yidocker-mo-niarm-ubuntu.html",
+            "title": "以Docker模擬arm ubuntu",
+            "summary": "Docker image參考 https://hub.docker.com/r/arm64v8/ubuntu/ 可以以以下指令將 該image pull下來 docker pull arm64v8/ubuntu:18.04Run以前景執行進行測試 docker run -it arm64v8/ubuntu:18.04得到了以下error WARNING: The requested image&#39;s platform (linux/arm64/v8) does not match the detected host platform (linux/amd64) and no specific platform was requestedstandard_init_linux.go:228: exec user process caused: exec format error 安裝qemu用於環景模擬： sudo apt install qemu-user-staticBack&hellip;",
+            "content_html": "<h2 id=\"docker-image\">Docker image</h2>\n<p>參考 <a href=\"https://hub.docker.com/r/arm64v8/ubuntu/\">https://hub.docker.com/r/arm64v8/ubuntu/</a> 可以以以下指令將 該image pull下來  </p>\n<pre><code>docker pull arm64v8/ubuntu:18.04</code></pre><h2 id=\"run\">Run</h2>\n<p>以前景執行進行測試</p>\n<pre><code>docker run -it arm64v8/ubuntu:18.04</code></pre><p>得到了以下error <code>WARNING: The requested image&#39;s platform (linux/arm64/v8) does not match the detected host platform (linux/amd64) and no specific platform was requested\nstandard_init_linux.go:228: exec user process caused: exec format error</code></p>\n<h2 id=\"排除問題\">排除問題</h2>\n<p>安裝qemu用於環景模擬：</p>\n<pre><code>sudo apt install qemu-user-static</code></pre><p>Back to Run and enjoy~</p>\n",
+            "author": {
+                "name": "Kenny Chan"
+            },
+            "tags": [
+                   "Docker"
+            ],
+            "date_published": "2021-11-25T16:11:50+08:00",
+            "date_modified": "2021-11-25T16:14:12+08:00"
+        },
+        {
             "id": "https://labujuice.github.io/my_blog/submodule-with-gitlab-cicd.html",
             "url": "https://labujuice.github.io/my_blog/submodule-with-gitlab-cicd.html",
             "title": "Submodule with Gitlab CI/CD",
@@ -82,7 +97,7 @@
                    "STM32"
             ],
             "date_published": "2021-03-12T15:56:48+08:00",
-            "date_modified": "2021-03-15T11:49:26+08:00"
+            "date_modified": "2021-11-24T09:59:35+08:00"
         },
         {
             "id": "https://labujuice.github.io/my_blog/gitlab-runner-2.html",

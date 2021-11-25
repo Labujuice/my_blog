@@ -37,7 +37,7 @@
 </url>
 <url>
 <loc>https://labujuice.github.io/my_blog/stm32-freertos-printf-f-issue.html</loc>
-<lastmod>2021-03-15T11:49:26+08:00</lastmod>
+<lastmod>2021-11-24T09:59:35+08:00</lastmod>
 </url>
 <url>
 <loc>https://labujuice.github.io/my_blog/submodule-with-gitlab-cicd.html</loc>
@@ -46,5 +46,9 @@
 <url>
 <loc>https://labujuice.github.io/my_blog/yi-shuang-ci-tie-qu-dai-ci-tie-quan.html</loc>
 <lastmod>2021-04-28T00:37:37+08:00</lastmod>
+</url>
+<url>
+<loc>https://labujuice.github.io/my_blog/yidocker-mo-niarm-ubuntu.html</loc>
+<lastmod>2021-11-25T16:14:12+08:00</lastmod>
 </url>
 </urlset>

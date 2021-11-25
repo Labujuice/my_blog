@@ -3,12 +3,42 @@
     <title>Kenny&#x27;s Blog</title>
     <link href="https://labujuice.github.io/my_blog/feed.xml" rel="self" />
     <link href="https://labujuice.github.io/my_blog" />
-    <updated>2021-10-10T23:02:41+08:00</updated>
+    <updated>2021-11-25T16:14:12+08:00</updated>
     <author>
         <name>Kenny Chan</name>
     </author>
     <id>https://labujuice.github.io/my_blog</id>
 
+    <entry>
+        <title>以Docker模擬arm ubuntu</title>
+        <author>
+            <name>Kenny Chan</name>
+        </author>
+        <link href="https://labujuice.github.io/my_blog/yidocker-mo-niarm-ubuntu.html"/>
+        <id>https://labujuice.github.io/my_blog/yidocker-mo-niarm-ubuntu.html</id>
+            <category term="Docker"/>
+
+        <updated>2021-11-25T16:14:12+08:00</updated>
+            <summary>
+                <![CDATA[
+                    Docker image參考 https://hub.docker.com/r/arm64v8/ubuntu/ 可以以以下指令將 該image pull下來 docker pull arm64v8/ubuntu:18.04Run以前景執行進行測試 docker run -it arm64v8/ubuntu:18.04得到了以下error WARNING: The requested image&#39;s platform (linux/arm64/v8) does not match the detected host platform (linux/amd64) and no specific platform was requestedstandard_init_linux.go:228: exec user process caused: exec format error 安裝qemu用於環景模擬： sudo apt install qemu-user-staticBack&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h2 id="docker-image">Docker image</h2>
+<p>參考 <a href="https://hub.docker.com/r/arm64v8/ubuntu/">https://hub.docker.com/r/arm64v8/ubuntu/</a> 可以以以下指令將 該image pull下來  </p>
+<pre><code>docker pull arm64v8/ubuntu:18.04</code></pre><h2 id="run">Run</h2>
+<p>以前景執行進行測試</p>
+<pre><code>docker run -it arm64v8/ubuntu:18.04</code></pre><p>得到了以下error <code>WARNING: The requested image&#39;s platform (linux/arm64/v8) does not match the detected host platform (linux/amd64) and no specific platform was requested
+standard_init_linux.go:228: exec user process caused: exec format error</code></p>
+<h2 id="排除問題">排除問題</h2>
+<p>安裝qemu用於環景模擬：</p>
+<pre><code>sudo apt install qemu-user-static</code></pre><p>Back to Run and enjoy~</p>
+
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Submodule with Gitlab CI/CD</title>
         <author>
@@ -261,7 +291,7 @@ print(s_Sphere.getB([0,0,5]))</code></pre>
         <id>https://labujuice.github.io/my_blog/stm32-freertos-printf-f-issue.html</id>
             <category term="STM32"/>
 
-        <updated>2021-03-15T11:49:26+08:00</updated>
+        <updated>2021-11-24T09:59:35+08:00</updated>
             <summary>
                 <![CDATA[
                     故事的起源stm32 使用Cube 生成之專案在使用printf列印%f的時候發現printf %f 轉出長度為0的字串。 經過爬文了解，搭配硬體浮點運算器需要printf float ，需要在LINKER_FLAGS 加上-u _printf_float ，這樣才可以正常解出float的字串。 即便已經加上_printf_float ，在task內 printf %f 還是會遇到死當的問題，也是爬文發現有網友去trace break point，發現進入hard fault。 經過交叉測試發現在專案開始還沒帶起OS context switch的時候就先使用一次 print %f, 這樣就不會在task內列印%f時發生hard fault。 原因暫時還不知道，還要追追看斷點或者爬文，找到後在更新上來。 根據網友討論的解法，無限增加stack size的深度就可以避免這個問題，但這個真的是最佳解法嘛？ 經過實測確實初步可以減少當機機率，但是因為動態記憶體的使用因素，可能會隨著列印 float 數字不同產生當機的現象，而且我也有開個很誇張的 stack size = 4096 * 4 byte，它乾脆不努力了直接不輸出也沒進入error callback。 *這些手段都實做了還是會當機， 記憶體永遠都不夠用的，也不建議無限亂開* 根據爬文網友結果，有幾種作法 想辦法自己刻出printf的功能，不要使用stdio內的這些function。 把malloc改成FreeRTOS原生pvPortMalloc，但printf需要realloc()這邊沒有提供，可能也會失敗。&hellip;
