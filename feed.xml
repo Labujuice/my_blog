@@ -3,12 +3,44 @@
     <title>Kenny&#x27;s Blog</title>
     <link href="https://labujuice.github.io/my_blog/feed.xml" rel="self" />
     <link href="https://labujuice.github.io/my_blog" />
-    <updated>2021-11-25T16:14:12+08:00</updated>
+    <updated>2021-11-25T16:31:08+08:00</updated>
     <author>
         <name>Kenny Chan</name>
     </author>
     <id>https://labujuice.github.io/my_blog</id>
 
+    <entry>
+        <title>Pyinstaller安裝與使用</title>
+        <author>
+            <name>Kenny Chan</name>
+        </author>
+        <link href="https://labujuice.github.io/my_blog/gpyinstaller-an-zhuang-yu-shi-yong.html"/>
+        <id>https://labujuice.github.io/my_blog/gpyinstaller-an-zhuang-yu-shi-yong.html</id>
+            <category term="python"/>
+
+        <updated>2021-11-25T16:31:08+08:00</updated>
+            <summary>
+                <![CDATA[
+                    Installationpip or pip3: pip3 install pyinstaller阿如果沒有PIP這邊複習一下pip安裝方法: apt -&gt; sudo apt install python3-pip , pip下來之後可能還需要更新-&gt; pip3 install --upgrade pip 完整打包指令 pyinstaller -F -w -c --clean target.py如果想要加上圖片則加上 --icon=thisisicon.ico注意事項沒有安裝完所有所需的套件一樣可以被打包成執行檔, 但是執行起來馬上會當掉完整打包會變得很肥, 如果說目標裝置已經有python以及其相關鎖需要的module, 則不一定需要完整打包
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h2 id="installation">Installation</h2>
+<p>pip or pip3:  </p>
+<pre><code>pip3 install pyinstaller</code></pre><p>阿如果沒有PIP這邊複習一下pip安裝方法:<br>apt -&gt; <code>sudo apt install python3-pip</code>  , pip下來之後可能還需要更新-&gt; <code>pip3 install --upgrade pip</code></p>
+<h2 id="pyinstaller-usage">Pyinstaller usage</h2>
+<p>完整打包指令</p>
+<pre><code>pyinstaller -F -w -c --clean target.py</code></pre><p>如果想要加上圖片則加上 <code>--icon=thisisicon.ico</code></p>
+<h2 id="注意事項">注意事項</h2>
+<ol>
+<li>沒有安裝完所有所需的套件一樣可以被打包成執行檔, 但是執行起來馬上會當掉</li>
+<li>完整打包會變得很肥, 如果說目標裝置已經有python以及其相關鎖需要的module, 則不一定需要完整打包</li>
+</ol>
+
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>以Docker模擬arm ubuntu</title>
         <author>
@@ -561,59 +593,6 @@ ubuntu                                latest    f63181f19b2f   6 weeks ago    72
 <li><a href="https://hub.docker.com/r/stronglytyped/arm-none-eabi-gcc/dockerfile">Docker Hub : stronglytyped/arm-none-eabi-gcc
 </a></li>
 <li><a href="https://ithelp.ithome.com.tw/users/20103456/ironman/1320">用30天來介紹和使用 Docker 系列</a></li>
-</ol>
-
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Docker 1 安裝</title>
-        <author>
-            <name>Kenny Chan</name>
-        </author>
-        <link href="https://labujuice.github.io/my_blog/docker-1-installatio.html"/>
-        <id>https://labujuice.github.io/my_blog/docker-1-installatio.html</id>
-            <category term="Docker"/>
-
-        <updated>2021-03-04T13:47:36+08:00</updated>
-            <summary>
-                <![CDATA[
-                    為啥需要Docker?由於近期開發的專案需要導入在Gitlab上開啟CI/CD的功能，在這之前需要先架設一台GitLab Runner，但是在一台Runner上面如果同時針對很多專案去做檢查是需要把這台SERVER的環境設置成所有專案都相容的，安裝起來相當費工夫，並且可能會在過程中發生不幸的事情。 這時候Docker的好處就展現出來了，可以輕易達成在一個SERVER上面同時滿足： 其實上網搜尋已經有很多前人的足跡，在此就不再次撰寫這篇章，不外乎就是看看Docker官方的教學文件以及上網看看前人們學習的動機與方法。 查閱Docker Docs 網頁[1]可以發現 ubuntu 安裝頁面下面有一個 現成的Shell script，直接下載執行，就可以作到最懶人的安裝方式。 curl -fsSL https://get.docker.com -o get-docker.sh sudo sh get-docker.sh另一方法則是參考其他前輩根據官網教學的指令所撰寫好的Script[2]: sudo apt-get remove -y docker docker-engine docker.io containerd runc; \sudo apt-get update &amp;&amp; \sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common &amp;&amp; \curl -fsSL https://download.docker.com/linux/ubuntu/gpg&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                <h1 id="為啥需要docker">為啥需要Docker?</h1>
-<p>由於近期開發的專案需要導入在Gitlab上開啟CI/CD的功能，在這之前需要先架設一台GitLab Runner，但是在一台Runner上面如果同時針對很多專案去做檢查是需要把這台SERVER的環境設置成所有專案都相容的，安裝起來相當費工夫，並且可能會在過程中發生不幸的事情。</p>
-<p>這時候Docker的好處就展現出來了，可以輕易達成在一個SERVER上面同時滿足：</p>
-<ol>
-<li>多種編譯環境</li>
-<li>相互隔離</li>
-<li>玩爛了不必重新安裝系統(不污染原系統)</li>
-<li>可攜帶、可複製</li>
-</ol>
-<h1 id="如何開始第一步">如何開始第一步?</h1>
-<p>其實上網搜尋已經有很多前人的足跡，在此就不再次撰寫這篇章，不外乎就是看看Docker官方的教學文件以及上網看看前人們學習的動機與方法。</p>
-<h1 id="安裝懶人指令">安裝懶人指令?</h1>
-<p>查閱Docker Docs 網頁[1]可以發現 ubuntu 安裝頁面下面有一個 現成的Shell script，直接下載執行，就可以作到最懶人的安裝方式。</p>
-<pre><code> curl -fsSL https://get.docker.com -o get-docker.sh
- sudo sh get-docker.sh</code></pre><p>另一方法則是參考其他前輩根據官網教學的指令所撰寫好的Script[2]:</p>
-<pre><code>sudo apt-get remove -y docker docker-engine docker.io containerd runc; \
-sudo apt-get update &amp;&amp; \
-sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common &amp;&amp; \
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - &amp;&amp; \
-sudo add-apt-repository \
-   &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable&quot; &amp;&amp; \
-sudo apt-get update &amp;&amp; \
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io</code></pre><h1 id="確認已經裝好？">確認已經裝好？</h1>
-<p>如果已經正確安裝可以執行<code>docker</code> 來確定是否已經安裝完成，但是礙於權限應該沒辦法正確執行，故執行以下指令將docker設置為每個使用者都可以執行的權限。</p>
-<pre><code>sudo usermod -aG docker &lt;your-user&gt;</code></pre><p>接著登出在登入應該就可以正常執行，並且可以透過 <code>docker -v</code>確認目前安裝之版本號。</p>
-<h1 id="references">References</h1>
-<ol>
-<li><a href="https://docs.docker.com/">Docker Docs</a></li>
-<li><a href="https://caloskao.org/install-docker-on-ubuntu-20-04-focal-fossa/">https://caloskao.org/install-docker-on-ubuntu-20-04-focal-fossa/</a></li>
 </ol>
 
             ]]>

@@ -10,6 +10,21 @@
     },
     "items": [
         {
+            "id": "https://labujuice.github.io/my_blog/gpyinstaller-an-zhuang-yu-shi-yong.html",
+            "url": "https://labujuice.github.io/my_blog/gpyinstaller-an-zhuang-yu-shi-yong.html",
+            "title": "Pyinstaller安裝與使用",
+            "summary": "Installationpip or pip3: pip3 install pyinstaller阿如果沒有PIP這邊複習一下pip安裝方法: apt -&gt; sudo apt install python3-pip , pip下來之後可能還需要更新-&gt; pip3 install --upgrade pip 完整打包指令 pyinstaller -F -w -c --clean target.py如果想要加上圖片則加上 --icon=thisisicon.ico注意事項沒有安裝完所有所需的套件一樣可以被打包成執行檔, 但是執行起來馬上會當掉完整打包會變得很肥, 如果說目標裝置已經有python以及其相關鎖需要的module, 則不一定需要完整打包",
+            "content_html": "<h2 id=\"installation\">Installation</h2>\n<p>pip or pip3:  </p>\n<pre><code>pip3 install pyinstaller</code></pre><p>阿如果沒有PIP這邊複習一下pip安裝方法:<br>apt -&gt; <code>sudo apt install python3-pip</code>  , pip下來之後可能還需要更新-&gt; <code>pip3 install --upgrade pip</code></p>\n<h2 id=\"pyinstaller-usage\">Pyinstaller usage</h2>\n<p>完整打包指令</p>\n<pre><code>pyinstaller -F -w -c --clean target.py</code></pre><p>如果想要加上圖片則加上 <code>--icon=thisisicon.ico</code></p>\n<h2 id=\"注意事項\">注意事項</h2>\n<ol>\n<li>沒有安裝完所有所需的套件一樣可以被打包成執行檔, 但是執行起來馬上會當掉</li>\n<li>完整打包會變得很肥, 如果說目標裝置已經有python以及其相關鎖需要的module, 則不一定需要完整打包</li>\n</ol>\n",
+            "author": {
+                "name": "Kenny Chan"
+            },
+            "tags": [
+                   "python"
+            ],
+            "date_published": "2021-11-25T16:24:31+08:00",
+            "date_modified": "2021-11-25T16:31:08+08:00"
+        },
+        {
             "id": "https://labujuice.github.io/my_blog/yidocker-mo-niarm-ubuntu.html",
             "url": "https://labujuice.github.io/my_blog/yidocker-mo-niarm-ubuntu.html",
             "title": "以Docker模擬arm ubuntu",
@@ -143,21 +158,6 @@
             ],
             "date_published": "2021-03-03T09:58:08+08:00",
             "date_modified": "2021-03-04T15:16:34+08:00"
-        },
-        {
-            "id": "https://labujuice.github.io/my_blog/docker-1-installatio.html",
-            "url": "https://labujuice.github.io/my_blog/docker-1-installatio.html",
-            "title": "Docker 1 安裝",
-            "summary": "為啥需要Docker?由於近期開發的專案需要導入在Gitlab上開啟CI/CD的功能，在這之前需要先架設一台GitLab Runner，但是在一台Runner上面如果同時針對很多專案去做檢查是需要把這台SERVER的環境設置成所有專案都相容的，安裝起來相當費工夫，並且可能會在過程中發生不幸的事情。 這時候Docker的好處就展現出來了，可以輕易達成在一個SERVER上面同時滿足： 其實上網搜尋已經有很多前人的足跡，在此就不再次撰寫這篇章，不外乎就是看看Docker官方的教學文件以及上網看看前人們學習的動機與方法。 查閱Docker Docs 網頁[1]可以發現 ubuntu 安裝頁面下面有一個 現成的Shell script，直接下載執行，就可以作到最懶人的安裝方式。 curl -fsSL https://get.docker.com -o get-docker.sh sudo sh get-docker.sh另一方法則是參考其他前輩根據官網教學的指令所撰寫好的Script[2]: sudo apt-get remove -y docker docker-engine docker.io containerd runc; \\sudo apt-get update &amp;&amp; \\sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common &amp;&amp; \\curl -fsSL https://download.docker.com/linux/ubuntu/gpg&hellip;",
-            "content_html": "<h1 id=\"為啥需要docker\">為啥需要Docker?</h1>\n<p>由於近期開發的專案需要導入在Gitlab上開啟CI/CD的功能，在這之前需要先架設一台GitLab Runner，但是在一台Runner上面如果同時針對很多專案去做檢查是需要把這台SERVER的環境設置成所有專案都相容的，安裝起來相當費工夫，並且可能會在過程中發生不幸的事情。</p>\n<p>這時候Docker的好處就展現出來了，可以輕易達成在一個SERVER上面同時滿足：</p>\n<ol>\n<li>多種編譯環境</li>\n<li>相互隔離</li>\n<li>玩爛了不必重新安裝系統(不污染原系統)</li>\n<li>可攜帶、可複製</li>\n</ol>\n<h1 id=\"如何開始第一步\">如何開始第一步?</h1>\n<p>其實上網搜尋已經有很多前人的足跡，在此就不再次撰寫這篇章，不外乎就是看看Docker官方的教學文件以及上網看看前人們學習的動機與方法。</p>\n<h1 id=\"安裝懶人指令\">安裝懶人指令?</h1>\n<p>查閱Docker Docs 網頁[1]可以發現 ubuntu 安裝頁面下面有一個 現成的Shell script，直接下載執行，就可以作到最懶人的安裝方式。</p>\n<pre><code> curl -fsSL https://get.docker.com -o get-docker.sh\n sudo sh get-docker.sh</code></pre><p>另一方法則是參考其他前輩根據官網教學的指令所撰寫好的Script[2]:</p>\n<pre><code>sudo apt-get remove -y docker docker-engine docker.io containerd runc; \\\nsudo apt-get update &amp;&amp; \\\nsudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common &amp;&amp; \\\ncurl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - &amp;&amp; \\\nsudo add-apt-repository \\\n   &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \\\n   $(lsb_release -cs) \\\n   stable&quot; &amp;&amp; \\\nsudo apt-get update &amp;&amp; \\\nsudo apt-get install -y docker-ce docker-ce-cli containerd.io</code></pre><h1 id=\"確認已經裝好？\">確認已經裝好？</h1>\n<p>如果已經正確安裝可以執行<code>docker</code> 來確定是否已經安裝完成，但是礙於權限應該沒辦法正確執行，故執行以下指令將docker設置為每個使用者都可以執行的權限。</p>\n<pre><code>sudo usermod -aG docker &lt;your-user&gt;</code></pre><p>接著登出在登入應該就可以正常執行，並且可以透過 <code>docker -v</code>確認目前安裝之版本號。</p>\n<h1 id=\"references\">References</h1>\n<ol>\n<li><a href=\"https://docs.docker.com/\">Docker Docs</a></li>\n<li><a href=\"https://caloskao.org/install-docker-on-ubuntu-20-04-focal-fossa/\">https://caloskao.org/install-docker-on-ubuntu-20-04-focal-fossa/</a></li>\n</ol>\n",
-            "author": {
-                "name": "Kenny Chan"
-            },
-            "tags": [
-                   "Docker"
-            ],
-            "date_published": "2021-03-03T09:47:44+08:00",
-            "date_modified": "2021-03-04T13:47:36+08:00"
         }
     ]
 }
